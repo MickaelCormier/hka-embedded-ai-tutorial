@@ -87,15 +87,17 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh 
 ENV PATH=/opt/conda/bin/:$PATH
 
 ENV PYTHON_VERSION=3.8
-RUN conda create -y --name mmlab python=${PYTHON_VERSION}
 
-RUN conda init bash && echo "source activate mmlab" > ~/.bashrc
+# mmpose env
+RUN conda create -y --name mmpose python=${PYTHON_VERSION}
+
+RUN conda init bash && echo "source activate mmpose" > ~/.bashrc
 
 SHELL [ "/bin/bash", "--login", "-c" ]
 
-# SHELL [ "conda", "run", "-n", "mmlab", "/bin/bash", "-c" ]
+# SHELL [ "conda", "run", "-n", "mmpose", "/bin/bash", "-c" ]
 
-WORKDIR /mmlab
+WORKDIR /mmpose
 
 # https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
 # RUN wget https://nvidia.box.com/shared/static/i8pukc49h3lhak4kkn67tg9j4goqm0m7.whl -O torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
@@ -110,7 +112,37 @@ RUN pip install --no-cache torch-1.11.0-cp38-cp38-linux_aarch64.whl
 RUN pip install torchvision==0.12.0
 
 # https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#prepare-tensorrt
-RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmlab/lib/python${PYTHON_VERSION}/site-packages/ 
+RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmpose/lib/python${PYTHON_VERSION}/site-packages/ 
+
+RUN pip install ninja
+RUN pip install -U openmim
+RUN mim install mmengine
+
+# mmyolo env
+RUN conda create -y --name mmyolo python=${PYTHON_VERSION}
+
+RUN conda init bash && echo "source activate mmyolo" > ~/.bashrc
+
+SHELL [ "/bin/bash", "--login", "-c" ]
+
+# SHELL [ "conda", "run", "-n", "mmyolo", "/bin/bash", "-c" ]
+
+WORKDIR /mmyolo
+
+# https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+# RUN wget https://nvidia.box.com/shared/static/i8pukc49h3lhak4kkn67tg9j4goqm0m7.whl -O torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+# RUN pip install --no-cache torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+
+# https://forums.developer.nvidia.com/t/module-torch-distributed-has-no-attribute-reduceop/256581/7
+RUN wget https://nvidia.box.com/shared/static/ssf2v7pf5i245fk4i0q926hy4imzs2ph.whl -O torch-1.11.0-cp38-cp38-linux_aarch64.whl
+RUN pip install --no-cache torch-1.11.0-cp38-cp38-linux_aarch64.whl
+
+# PyTorch v2.0 - torchvision v0.15.1
+# PyTorch v1.11 - torchvision v0.12.0
+RUN pip install torchvision==0.12.0
+
+# https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#prepare-tensorrt
+RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmyolo/lib/python${PYTHON_VERSION}/site-packages/ 
 
 RUN pip install ninja
 RUN pip install -U openmim

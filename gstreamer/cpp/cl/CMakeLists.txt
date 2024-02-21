@@ -21,6 +21,8 @@ pkg_search_module(GSTAPP REQUIRED IMPORTED_TARGET gstreamer-app-1.0)
 include_directories(${GST_INCLUDE_DIRS})
 link_directories(${GST_LIBARARY_DIRS})
 
+link_directories(${CMAKE_BINARY_DIR}/lib)
+
 set(PROJECT_SOURCES
   main.cpp
 )
@@ -28,13 +30,14 @@ set(PROJECT_SOURCES
 add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ${OpenCV_LIBS}
-    PkgConfig::GST
-    PkgConfig::GIO
-    PkgConfig::GOB
-    PkgConfig::GSTB
-    PkgConfig::GSTVID
-    PkgConfig::GSTAPP
+  cpp_gstreamer
+  ${OpenCV_LIBS}
+  PkgConfig::GST
+  PkgConfig::GIO
+  PkgConfig::GOB
+  PkgConfig::GSTB
+  PkgConfig::GSTVID
+  PkgConfig::GSTAPP
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/library/Header ${CMAKE_SOURCE_DIR}/library/Header/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib)

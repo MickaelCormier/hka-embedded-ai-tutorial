@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(example VERSION 0.1 LANGUAGES CXX)
+project(cpp_gstreamer VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 find_package(OpenCV REQUIRED)
@@ -21,11 +23,10 @@ pkg_search_module(GSTAPP REQUIRED IMPORTED_TARGET gstreamer-app-1.0)
 include_directories(${GST_INCLUDE_DIRS})
 link_directories(${GST_LIBARARY_DIRS})
 
-set(PROJECT_SOURCES
-  main.cpp
+add_library(${PROJECT_NAME} SHARED
+  cpp_gstreamer.h
+  cpp_gstreamer.cpp
 )
-
-add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ${OpenCV_LIBS}
@@ -36,5 +37,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     PkgConfig::GSTVID
     PkgConfig::GSTAPP
 )
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/library/Header ${CMAKE_SOURCE_DIR}/library/Header/include)
