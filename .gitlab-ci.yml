@@ -18,7 +18,7 @@ stages:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     # Variables DIR and FILE can be used to customize the build context
-    - /kaniko/executor --context ${CI_PROJECT_DIR}/${DIR} --custom-platform=linux/arm64 --dockerfile ${CI_PROJECT_DIR}/${DIR}/Dockerfile
+    - /kaniko/executor --context ${CI_PROJECT_DIR}/${DIR} --custom-platform=linux/arm64/v8 --build-arg opts='GOARCH=arm64' --dockerfile ${CI_PROJECT_DIR}/${DIR}/Dockerfile
         --destination $CI_REGISTRY_IMAGE/$IMAGE:$TAG
         --cache=true --compressed-caching=false $MORE
 
