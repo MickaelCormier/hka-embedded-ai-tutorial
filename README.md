@@ -44,7 +44,7 @@ export LD_LIBRARY_PATH=$ONNXRUNTIME_DIR/lib:$LD_LIBRARY_PATH
 cd /mmlab/mmdeploy
 # build TensorRT custom operators
 mkdir -p build && cd build
-cmake .. -DMMDEPLOY_TARGET_BACKENDS="trt"
+cmake .. -DMMDEPLOY_TARGET_BACKENDS="trt;ort" -DONNXRUNTIME_DIR=${ONNXRUNTIME_DIR}
 make -j$(nproc) && make install
 
 # install model converter
