@@ -22,15 +22,15 @@ cd mmpose && pip install -r requirements.txt && pip install -v -e .
 conda activate mmyolo
 
 python3 -c "import torch;print(f'CUDA IS FOUND:{torch.cuda.is_available()}')"
-mim install "mmcv>=2.0.0rc4,<2.1.0"
-mim install "mmdet>=3.0.0,<4.0.0"
+mim install -v "mmcv==2.0.0rc4"
+mim install -v "mmdet>=3.0.0,<4.0.0"
 
 git clone https://github.com/open-mmlab/mmyolo.git
 cd mmyolo && pip install -r requirements.txt && pip install -v -e .
 
 exit
 
-docker commit mmlab_c nvidia container_mmlab:latest
+docker commit mmlab_c container_mmlab:latest
 
 docker save container_mmlab:latest -o container_mmlab.tar
 ```

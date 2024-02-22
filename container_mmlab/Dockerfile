@@ -76,7 +76,9 @@ RUN apt update && apt full-upgrade -y && apt install -y --no-install-recommends 
     libtbb-dev libtbb2 \
     && apt-get -qq clean
 
-RUN apt install -y libopenblas-base libopenmpi-dev libomp-dev
+RUN apt install -y libopenblas-base libopenmpi-dev libomp-dev libjpeg-dev libpython3-dev libavcodec-dev \
+    libavformat-dev libswscale-dev libopenblas-dev protobuf-compiler libprotoc-dev libhdf5-100 libhdf5-dev \
+    libspdlog-dev
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O ~/miniconda.sh \
      && /bin/bash ~/miniconda.sh -b -u -p /opt/conda \
@@ -97,7 +99,7 @@ SHELL [ "/bin/bash", "--login", "-c" ]
 
 # SHELL [ "conda", "run", "-n", "mmpose", "/bin/bash", "-c" ]
 
-WORKDIR /mmpose
+WORKDIR /mmlab
 
 # https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
 # RUN wget https://nvidia.box.com/shared/static/i8pukc49h3lhak4kkn67tg9j4goqm0m7.whl -O torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
@@ -109,17 +111,29 @@ RUN pip install --no-cache torch-1.11.0-cp38-cp38-linux_aarch64.whl
 
 # PyTorch v2.0 - torchvision v0.15.1
 # PyTorch v1.11 - torchvision v0.12.0
-RUN pip install torchvision==0.12.0
+# RUN pip install torchvision==0.12.0
+
+WORKDIR /torchV
+ENV BUILD_VERSION=0.12.0
+RUN git clone --branch v0.12.0 https://github.com/pytorch/vision torchvision
+RUN cd torchvision && pip install -e .
+WORKDIR /mmlab
 
 # https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#prepare-tensorrt
-RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmpose/lib/python${PYTHON_VERSION}/site-packages/ 
+RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmpose/lib/python${PYTHON_VERSION}/site-packages/
 
-RUN pip install ninja
+ENV TENSORRT_DIR=/usr/include/aarch64-linux-gnu
+ENV PATH=$PATH:/usr/local/cuda/bin
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+
+# TODO:? https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#install-mmcv
+
+RUN pip install ninja numpy
 RUN pip install -U openmim
 RUN mim install mmengine
 
 # mmyolo env
-RUN conda create -y --name mmyolo python=${PYTHON_VERSION}
+RUN conda create -y --name mmyolo --clone mmpose
 
 RUN conda init bash && echo "source activate mmyolo" > ~/.bashrc
 
@@ -127,26 +141,32 @@ SHELL [ "/bin/bash", "--login", "-c" ]
 
 # SHELL [ "conda", "run", "-n", "mmyolo", "/bin/bash", "-c" ]
 
-WORKDIR /mmyolo
 
-# https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
-# RUN wget https://nvidia.box.com/shared/static/i8pukc49h3lhak4kkn67tg9j4goqm0m7.whl -O torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
-# RUN pip install --no-cache torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+# mmdeploy env
+RUN conda create -y --name mmdeploy --clone mmpose
 
-# https://forums.developer.nvidia.com/t/module-torch-distributed-has-no-attribute-reduceop/256581/7
-RUN wget https://nvidia.box.com/shared/static/ssf2v7pf5i245fk4i0q926hy4imzs2ph.whl -O torch-1.11.0-cp38-cp38-linux_aarch64.whl
-RUN pip install --no-cache torch-1.11.0-cp38-cp38-linux_aarch64.whl
+RUN conda init bash && echo "source activate mmdeploy" > ~/.bashrc
 
-# PyTorch v2.0 - torchvision v0.15.1
-# PyTorch v1.11 - torchvision v0.12.0
-RUN pip install torchvision==0.12.0
+SHELL [ "/bin/bash", "--login", "-c" ]
 
-# https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#prepare-tensorrt
-RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmyolo/lib/python${PYTHON_VERSION}/site-packages/ 
+RUN pip install onnx==1.10.0
 
-RUN pip install ninja
-RUN pip install -U openmim
-RUN mim install mmengine
+# ONNX
+RUN wget https://nvidia.box.com/shared/static/iizg3ggrtdkqawkmebbfixo7sce6j365.whl -O onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
+RUN pip install onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
+
+RUN pip install versioned-hdf5 pycuda
+
+RUN git clone https://github.com/openppl-public/ppl.cv.git
+WORKDIR /mmlab/ppl.cv
+ENV PPLCV_DIR=/mmlab/ppl.cv
+# RUN ./build.sh cuda
+
+WORKDIR /mmlab
+RUN git clone -b main --recursive https://github.com/open-mmlab/mmdeploy.git
+ENV MMDEPLOY_DIR=/mmlab/mmdeploy
+
+RUN git clone -b 3.x https://github.com/open-mmlab/mmdetection.git
 
 
 # Needs GPU / nvidia runtime:

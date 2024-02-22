@@ -1,0 +1,43 @@
+image: docker:latest
+
+default:
+  tags:
+  - vid
+  - cormier_students
+  - iv
+
+stages:
+ - base
+ - mmlab
+
+.build_template_0: &build_configuration
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    # Variables DIR and FILE can be used to customize the build context
+    - /kaniko/executor --context ${CI_PROJECT_DIR}/${DIR} --dockerfile ${CI_PROJECT_DIR}/${DIR}/Dockerfile
+        --destination $CI_REGISTRY_IMAGE/$IMAGE:$TAG
+        --cache=true --compressed-caching=false $MORE
+
+build-gstreamer-l4t-r36.2.0:
+  stage: base
+  <<: *build_configuration
+  variables:
+    IMAGE: jetson_gstreamer
+    TAG: latest
+    DIR: container_gstreamer
+  when: manual
+
+build-mmlab-base-l4t-r35.3.1:
+  stage: base
+  <<: *build_configuration
+  variables:
+    IMAGE: jetson_mmlab
+    TAG: build
+    DIR: container_mmlab
+  when: manual
+
+
