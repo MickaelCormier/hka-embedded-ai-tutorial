@@ -6,10 +6,6 @@ default:
     - x86
     - u22
     - docker
-    - zolk
-  # - vid
-  # - cormier_students
-  # - iv
 
 stages:
  - base
