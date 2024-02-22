@@ -2,9 +2,9 @@ image: docker:latest
 
 default:
   tags:
-  - vid
-  - cormier_students
-  - iv
+    - cormier_students 
+    - iv 
+    - vid
 
 stages:
  - base

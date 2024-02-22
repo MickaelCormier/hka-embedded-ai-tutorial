@@ -28,6 +28,11 @@ mim install -v "mmdet>=3.0.0,<4.0.0"
 git clone https://github.com/open-mmlab/mmyolo.git
 cd mmyolo && pip install -r requirements.txt && pip install -v -e .
 
+
+conda activate mmdeploy
+
+... TODO
+
 exit
 
 docker commit mmlab_c container_mmlab:latest

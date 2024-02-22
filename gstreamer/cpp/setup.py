@@ -128,7 +128,7 @@ setup(
     version='0.0.99',
     author='',
     author_email='',
-    packages=['py_cpp_gstreamer'],
+    packages=['py_lib'],
     description='A Python connection to the cpp_gstreamer lib',
     long_description='',
     ext_modules=[CMakeExtension('py_cpp_gstreamer')],

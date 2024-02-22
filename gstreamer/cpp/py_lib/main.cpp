@@ -1,11 +1,12 @@
 #include "Py_Include.h"
 #include "Py_Utilities.h"
+#include "cpp_gstreamer.h"
 
 PYBIND11_MODULE(py_cpp_gstreamer, m) {
   m.doc() =
       "A Python connection to the cpp_gstreamer lib written in C++";
 
-  py::class_<cpp_gstreamer>(m, "cpp_gstreamer")
+  py::class_<Cpp_Gstreamer>(m, "Cpp_Gstreamer")
       .def(py::init<>())
       
       ;

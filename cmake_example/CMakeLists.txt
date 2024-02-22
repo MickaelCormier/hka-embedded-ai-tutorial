@@ -36,5 +36,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     PkgConfig::GSTVID
     PkgConfig::GSTAPP
 )
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/library/Header ${CMAKE_SOURCE_DIR}/library/Header/include)

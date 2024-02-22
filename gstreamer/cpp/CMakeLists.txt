@@ -4,4 +4,4 @@ project(build)
 
 add_subdirectory(lib)
 add_subdirectory(cl)
-# add_subdirectory(py_lib)
+add_subdirectory(py_lib)

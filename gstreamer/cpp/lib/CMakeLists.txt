@@ -24,16 +24,16 @@ include_directories(${GST_INCLUDE_DIRS})
 link_directories(${GST_LIBARARY_DIRS})
 
 add_library(${PROJECT_NAME} SHARED
-  cpp_gstreamer.h
-  cpp_gstreamer.cpp
+  Cpp_Gstreamer.h
+  Cpp_Gstreamer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ${OpenCV_LIBS}
-    PkgConfig::GST
-    PkgConfig::GIO
-    PkgConfig::GOB
-    PkgConfig::GSTB
-    PkgConfig::GSTVID
-    PkgConfig::GSTAPP
+  ${OpenCV_LIBS}
+  PkgConfig::GST
+  PkgConfig::GIO
+  PkgConfig::GOB
+  PkgConfig::GSTB
+  PkgConfig::GSTVID
+  PkgConfig::GSTAPP
 )
