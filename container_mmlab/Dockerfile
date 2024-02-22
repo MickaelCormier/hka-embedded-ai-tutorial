@@ -77,7 +77,7 @@ RUN apt update && apt full-upgrade -y && apt install -y --no-install-recommends 
     && apt-get -qq clean
 
 RUN apt install -y libopenblas-base libopenmpi-dev libomp-dev libjpeg-dev libpython3-dev libavcodec-dev \
-    libavformat-dev libswscale-dev libopenblas-dev protobuf-compiler libprotoc-dev libhdf5-100 libhdf5-dev \
+    libavformat-dev libswscale-dev libopenblas-dev protobuf-compiler libprotoc-dev libhdf5-103 libhdf5-dev \
     libspdlog-dev
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O ~/miniconda.sh \
@@ -111,13 +111,13 @@ RUN pip install --no-cache torch-1.11.0-cp38-cp38-linux_aarch64.whl
 
 # PyTorch v2.0 - torchvision v0.15.1
 # PyTorch v1.11 - torchvision v0.12.0
-# RUN pip install torchvision==0.12.0
+RUN pip install torchvision==0.12.0
 
-WORKDIR /torchV
-ENV BUILD_VERSION=0.12.0
-RUN git clone --branch v0.12.0 https://github.com/pytorch/vision torchvision
-RUN cd torchvision && pip install -e .
-WORKDIR /mmlab
+# WORKDIR /torchV
+# ENV BUILD_VERSION=0.12.0
+# RUN git clone --branch v0.12.0 https://github.com/pytorch/vision torchvision
+# RUN cd torchvision && pip install -e .
+# WORKDIR /mmlab
 
 # https://mmdeploy.readthedocs.io/en/latest/01-how-to-build/jetsons.html#prepare-tensorrt
 RUN cp -r /usr/lib/python${PYTHON_VERSION}/dist-packages/tensorrt* /opt/conda/envs/mmpose/lib/python${PYTHON_VERSION}/site-packages/
