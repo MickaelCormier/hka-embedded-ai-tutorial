@@ -38,6 +38,7 @@ cd /mmlab/ppl.cv
 cd /mmlab
 wget https://github.com/microsoft/onnxruntime/releases/download/v1.16.0/onnxruntime-linux-aarch64-1.16.0.tgz
 tar -zxvf onnxruntime-linux-aarch64-1.16.0.tgz
+cd onnxruntime-linux-aarch64-1.16.0
 export ONNXRUNTIME_DIR=$(pwd)
 export LD_LIBRARY_PATH=$ONNXRUNTIME_DIR/lib:$LD_LIBRARY_PATH
 
