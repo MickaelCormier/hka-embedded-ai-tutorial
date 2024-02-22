@@ -2,10 +2,9 @@ image: docker:latest
 
 default:
   tags:
+    - cormier_students 
+    - iv 
     - vid
-    - x86
-    - u22
-    - docker
 
 stages:
  - base
