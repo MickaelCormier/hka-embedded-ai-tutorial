@@ -23,7 +23,9 @@ conda activate mmyolo
 
 python3 -c "import torch;print(f'CUDA IS FOUND:{torch.cuda.is_available()}')"
 mim install -v "mmcv==2.0.0rc4"
-mim install -v "mmdet>=3.0.0,<4.0.0"
+mim install -v "mmdet>=3.0.0rc5,<3.1.0"
+
+pip install onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
 
 git clone https://github.com/open-mmlab/mmyolo.git
 cd mmyolo && pip install -r requirements.txt && pip install -v -e .
@@ -34,18 +36,10 @@ conda activate mmdeploy
 cd /mmlab/ppl.cv
 ./build.sh cuda
 
-# ONNX
-cd /mmlab
-wget https://github.com/microsoft/onnxruntime/releases/download/v1.16.0/onnxruntime-linux-aarch64-1.16.0.tgz
-tar -zxvf onnxruntime-linux-aarch64-1.16.0.tgz
-cd onnxruntime-linux-aarch64-1.16.0
-export ONNXRUNTIME_DIR=$(pwd)
-export LD_LIBRARY_PATH=$ONNXRUNTIME_DIR/lib:$LD_LIBRARY_PATH
-
 cd /mmlab/mmdeploy
 # build TensorRT custom operators
 mkdir -p build && cd build
-cmake .. -DMMDEPLOY_TARGET_BACKENDS="trt;ort" -DONNXRUNTIME_DIR=${ONNXRUNTIME_DIR}
+cmake .. -DMMDEPLOY_TARGET_BACKENDS="trt"
 make -j$(nproc) && make install
 
 # install model converter
@@ -59,9 +53,8 @@ cmake .. \
     -DMMDEPLOY_BUILD_SDK_PYTHON_API=ON \
     -DMMDEPLOY_BUILD_EXAMPLES=ON \
     -DMMDEPLOY_TARGET_DEVICES="cuda;cpu" \
-    -DMMDEPLOY_TARGET_BACKENDS="trt;ort" \
+    -DMMDEPLOY_TARGET_BACKENDS="trt" \
     -DMMDEPLOY_CODEBASES=all \
-    -DONNXRUNTIME_DIR=${ONNXRUNTIME_DIR} \
     -Dpplcv_DIR=${PPLCV_DIR}/cuda-build/install/lib/cmake/ppl
 make -j$(nproc) && make install
 
@@ -69,6 +62,10 @@ make -j$(nproc) && make install
 cd /mmlab/mmdetection
 pip install -r requirements/build.txt
 pip install -v -e .  # or "python setup.py develop"
+# OR Test on mmpose
+cd /mmlab/mmpose
+pip install -r requirements/build.txt
+pip install -v -e .
 ```
 ```
 exit
