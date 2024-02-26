@@ -1,4 +1,4 @@
-#include <cpp_gstreamer.h>
+#include <Cpp_Gstreamer.h>
 
 int main(int argc, char *argv[])
 {

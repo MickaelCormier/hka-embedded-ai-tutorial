@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(py_cpp_gstreamer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-set(CMAKE_CXX_STANDARD 20)
+# set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(OpenCV REQUIRED)

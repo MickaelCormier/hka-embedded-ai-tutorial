@@ -1,12 +1,12 @@
-FROM --platform=linux/arm64 container_gstreamer
+FROM --platform=linux/arm64 registry.gitlab.cc-asp.fraunhofer.de/cormier_students/embedded-ai-tutorial/jetson_gstreamer:jetpack4
 
 # Copy and build
 WORKDIR /app
 COPY gstreamer gstreamer
 
-RUN mkdir /app/gstreamer/build && cd /app/gstreamer/build && \
+RUN mkdir /app/gstreamer/cpp/build && cd /app/gstreamer/cpp/build && \
     cmake .. && make -j 4
 
-RUN cd /app/gstreamer && pip install .
+RUN cd /app/gstreamer/cpp && pip install .
 
 CMD [ "/bin/bash" ]
