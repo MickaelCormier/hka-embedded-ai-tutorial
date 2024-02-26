@@ -57,7 +57,6 @@ RUN apt update && apt full-upgrade -y && apt install -y --no-install-recommends 
     gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa \
     gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio \
     python3-gi python3-gi-cairo \
-    # QT 6.5 dependencies from: https://doc.qt.io/qt-6/linux-requirements.html --->
     libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev \
     libxi-dev libxrender-dev libxcb1-dev libxcb-cursor-dev libxcb-glx0-dev libxcb-keysyms1-dev \
     libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync-dev libxcb-xfixes0-dev \
@@ -66,7 +65,6 @@ RUN apt update && apt full-upgrade -y && apt install -y --no-install-recommends 
     #libvulkan\
     libkrb5-dev libuv1-dev libssl-dev \
     libgl-dev libglx-dev libopengl-dev \
-    # gRPC Deps --->
     autoconf \
     libtool \
     software-properties-common \
