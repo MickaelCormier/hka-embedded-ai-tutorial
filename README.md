@@ -15,6 +15,8 @@ python3 -c "import torch;print(f'CUDA IS FOUND:{torch.cuda.is_available()}')"
 mim install -v "mmcv>=2.0.1,<2.1.0"
 mim install -v "mmdet>=3.1.0,<4.0.0"
 
+pip install onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
+
 git clone https://github.com/open-mmlab/mmpose.git
 cd mmpose && pip install -r requirements.txt && pip install -v -e .
 ```
@@ -72,5 +74,7 @@ exit
 
 docker commit mmlab_c container_mmlab:latest
 
+docker push container_mmlab:latest
+or
 docker save container_mmlab:latest -o container_mmlab.tar
 ```
