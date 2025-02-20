@@ -1,0 +1,16 @@
+mmyolo root folder:
+
+Note: If you have problems building the trt file or running onnxruntime inference, use --model-only.
+python projects/easydeploy/tools/export.py \
+	yolov8_n_syncbn_fast_8xb16-500e_coco.py \
+	yolov8_n_syncbn_fast_8xb16-500e_coco_20230114_131804-88c11cdb.pth \
+	--work-dir work_dir \
+    --img-size 640 640 \
+    --batch 1
+
+TRT:
+python projects/easydeploy/tools/build_engine.py \
+    work_dir/yolov8_n_syncbn_fast_8xb16-500e_coco_20230114_131804-88c11cdb.onnx 
+    --img-size 640 640 \
+    --device cuda:0
+
