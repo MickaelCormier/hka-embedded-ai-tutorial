@@ -1,0 +1,69 @@
+# Here you can see that you only get miserable results due to the loss of the entire stage 4.
+
+
+[<PoseDataSample(
+
+    META INFORMATION
+    img_shape: (346, 218)
+    input_size: (192, 256)
+    ori_shape: (346, 218)
+    input_center: array([109., 173.])
+    pad_shape: (256, 192)
+    flip_indices: [0, 2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14, 13, 16, 15]
+    input_scale: array([324.375, 432.5  ])
+    batch_input_shape: (256, 192)
+    img_path: '/mmlab/mmdeploy/demo/resources/human-pose.jpg'
+    dataset_name: 'coco'
+
+    DATA FIELDS
+    pred_instances: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+            bbox_scores: array([1.], dtype=float32)
+            bboxes: array([[  0,   0, 218, 346]])
+            keypoint_scores: array([[4.2124370e+03, 8.2890039e+02, 2.4913275e+02, 3.1507529e+02,
+                        6.4050842e+01, 2.5595345e+02, 1.0456412e+02, 1.3535185e+02,
+                        3.9439457e+01, 5.4480426e+02, 1.6568317e+01, 7.2146213e-01,
+                        7.1071053e+00, 3.6108481e+02, 2.9852008e+02, 8.1371844e-01,
+                        2.8080076e-01]], dtype=float32)
+            keypoints: array([[[214.59082  , 303.0879   ],
+                        [247.53516  , 283.65918  ],
+                        [212.90137  , 352.08203  ],
+                        [-15.174805 , 388.40527  ],
+                        [226.41699  , 302.24316  ],
+                        [101.39746  , 388.40527  ],
+                        [-28.69043  , 363.9082   ],
+                        [ 63.384766 ,   6.588867 ],
+                        [-35.448242 , 349.54785  ],
+                        [-41.36133  ,   4.0546875],
+                        [270.34277  ,  -1.8583984],
+                        [  2.5644531, 314.06934  ],
+                        [211.21191  , 318.29297  ],
+                        [229.7959   ,   1.5205078],
+                        [-12.640625 ,   3.209961 ],
+                        [-33.75879  ,   7.4335938],
+                        [217.125    , 388.40527  ]]], dtype=float32)
+            keypoints_visible: array([[4.2124370e+03, 8.2890039e+02, 2.4913275e+02, 3.1507529e+02,
+                        6.4050842e+01, 2.5595345e+02, 1.0456412e+02, 1.3535185e+02,
+                        3.9439457e+01, 5.4480426e+02, 1.6568317e+01, 7.2146213e-01,
+                        7.1071053e+00, 3.6108481e+02, 2.9852008e+02, 8.1371844e-01,
+                        2.8080076e-01]], dtype=float32)
+        ) at 0xfffee692d760>
+    gt_instance_labels: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+        ) at 0xfffee692d580>
+    gt_instances: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+            bboxes: array([[  0,   0, 218, 346]])
+            bbox_scores: array([1.], dtype=float32)
+            bbox_scales: array([[324.375, 432.5  ]])
+        ) at 0xfffee692d520>
+) at 0xfffee692d430>]

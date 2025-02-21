@@ -1,0 +1,64 @@
+[<PoseDataSample(
+
+    META INFORMATION
+    input_center: array([109., 173.])
+    input_scale: array([324.375, 432.5  ])
+    dataset_name: 'coco'
+    img_path: '/mmlab/mmdeploy/demo/resources/human-pose.jpg'
+    batch_input_shape: (256, 192)
+    flip_indices: [0, 2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14, 13, 16, 15]
+    ori_shape: (346, 218)
+    input_size: (192, 256)
+    pad_shape: (256, 192)
+    img_shape: (346, 218)
+
+    DATA FIELDS
+    pred_instances: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+            keypoints_visible: array([[0.97152114, 0.9869205 , 0.97675407, 0.9495058 , 0.9055073 ,
+                        0.7522621 , 0.7828974 , 0.65324855, 0.7610345 , 0.65175605,
+                        0.8733311 , 0.78194827, 0.7677562 , 0.86995006, 0.81722   ,
+                        0.86328685, 0.8115839 ]], dtype=float32)
+            bboxes: array([[  0,   0, 218, 346]])
+            keypoint_scores: array([[0.97152114, 0.9869205 , 0.97675407, 0.9495058 , 0.9055073 ,
+                        0.7522621 , 0.7828974 , 0.65324855, 0.7610345 , 0.65175605,
+                        0.8733311 , 0.78194827, 0.7677562 , 0.86995006, 0.81722   ,
+                        0.86328685, 0.8115839 ]], dtype=float32)
+            keypoints: array([[[ 87.881836,  34.464844],
+                        [ 94.63965 ,  27.707031],
+                        [ 81.12402 ,  29.396484],
+                        [108.15527 ,  31.930664],
+                        [ 76.055664,  35.30957 ],
+                        [127.583984,  69.09863 ],
+                        [ 83.6582  ,  81.76953 ],
+                        [163.90723 , 109.64551 ],
+                        [ 60.00586 , 117.24805 ],
+                        [166.4414  , 117.24805 ],
+                        [ 25.37207 , 134.14258 ],
+                        [152.08105 , 167.93164 ],
+                        [119.981445, 173.84473 ],
+                        [152.08105 , 244.80176 ],
+                        [ 91.26074 , 229.59668 ],
+                        [195.16211 , 315.7588  ],
+                        [125.049805, 298.01953 ]]], dtype=float32)
+            bbox_scores: array([1.], dtype=float32)
+        ) at 0xffff0c6f1af0>
+    gt_instances: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+            bboxes: array([[  0,   0, 218, 346]])
+            bbox_scores: array([1.], dtype=float32)
+            bbox_scales: array([[324.375, 432.5  ]])
+        ) at 0xffff0c6f1940>
+    gt_instance_labels: <InstanceData(
+
+            META INFORMATION
+
+            DATA FIELDS
+        ) at 0xffff0c6f1970>
+) at 0xffff0c6f1a60>]
